@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  bots:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: telegram-bots
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PROXY_ENABLED=${PROXY_ENABLED:-true}
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+    driver: bridge
