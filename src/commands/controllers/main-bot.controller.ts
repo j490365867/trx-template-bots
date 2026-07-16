@@ -15,6 +15,8 @@ import {
   createBatchPackageKeyboard,
   createAddressManageKeyboard,
 } from "../../utils/inline-keyboard.util";
+import * as path from "path";
+import * as fs from "fs";
 
 @Injectable()
 export class MainBotController {
@@ -30,23 +32,40 @@ export class MainBotController {
     const chatId = msg.chat.id;
 
     const welcomeMessage =
-      `<b>🏠 欢迎使用TG多功能机器人！本机器人提供以下服务：</b>\n\n` +
-      `🔸 <b>能量租赁</b>：转U即可省 80% TRX手续费\n` +
-      `🔹 <b>笔数套餐</b>：不限时间地址，用1笔扣1笔\n` +
-      `🔸 <b>TRX 闪兑</b>：全网最高汇率，兑换秒到账\n` +
-      `🔹 <b>智能托管</b>：自动补能，省心省力\n` +
-      `🔸 <b>时长租赁</b>：灵活租用，按需选择\n` +
+      `<b>🏠 欢迎使用TG多功能机器人！本机器人提供以下服务：</b>
+
+` +
+      `🔸 <b>能量租赁</b>：转U即可省 80% TRX手续费
+` +
+      `🔹 <b>笔数套餐</b>：不限时间地址，用1笔扣1笔
+` +
+      `🔸 <b>TRX 闪兑</b>：全网最高汇率，兑换秒到账
+` +
+      `🔹 <b>智能托管</b>：自动补能，省心省力
+` +
+      `🔸 <b>时长租赁</b>：灵活租用，按需选择
+` +
       `🔹 <b>能量预支、地址监控、余额查询</b>`;
 
     const welcomeFooter =
       `\n\n⚠️如需帮助，请联系客服：<a href="https://t.me/trxenio">@trxenio</a>`;
 
     try {
-      await bot.sendMessage(chatId, welcomeMessage + welcomeFooter, {
-        parse_mode: "HTML",
-        reply_markup: createMainMenuKeyboard(),
-        disable_web_page_preview: true,
-      });
+      // 发送 banner 图
+      const bannerPath = path.join(__dirname, "../../img/bot-banner.jpg");
+      if (fs.existsSync(bannerPath)) {
+        await bot.sendPhoto(chatId, fs.createReadStream(bannerPath), {
+          caption: welcomeMessage + welcomeFooter,
+          parse_mode: "HTML",
+          reply_markup: createMainMenuKeyboard(),
+        });
+      } else {
+        await bot.sendMessage(chatId, welcomeMessage + welcomeFooter, {
+          parse_mode: "HTML",
+          reply_markup: createMainMenuKeyboard(),
+          disable_web_page_preview: true,
+        });
+      }
       this.logger.log(`用户 ${msg.from?.id} 启动了机器人`);
     } catch (error) {
       this.logger.error(`发送欢迎消息失败 (chatId: ${chatId}):`, error);
