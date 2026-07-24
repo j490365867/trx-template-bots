@@ -136,6 +136,9 @@ export function createPersonalCenterKeyboard(): TelegramBot.InlineKeyboardMarkup
         { text: "💰 余额充值", callback_data: "recharge" },
         { text: "💁 联系客服", url: "https://t.me/trxenio" },
       ],
+      [
+        { text: "🌐 进入 Web 后台 ", callback_data: "gotoWeb"}
+      ]
     ],
   };
 }
@@ -179,28 +182,20 @@ export function createBatchPackageKeyboard(): TelegramBot.InlineKeyboardMarkup {
   return {
     inline_keyboard: [
       [
-        { text: "🟢 3.7 TRX / 笔 ", callback_data: "batch_pkg:label" }
+        { text: "10笔（3.00 TRX）", callback_data: "batch_pkg:select:10" },
+        { text: "50笔（15.00 TRX）", callback_data: "batch_pkg:select:50" },
       ],
       [
-        { text: "20笔", callback_data: "batch_pkg:select:20" },
-        { text: "30笔", callback_data: "batch_pkg:select:30" },
-        { text: "50笔", callback_data: "batch_pkg:select:50" },
+        { text: "100笔（30.00 TRX）", callback_data: "batch_pkg:select:100" },
+        { text: "300笔（90.00 TRX）", callback_data: "batch_pkg:select:300" },
       ],
       [
-        { text: "🔵 3.6 TRX / 笔 ", callback_data: "batch_pkg:label" }
+        { text: "500笔（150.00 TRX）", callback_data: "batch_pkg:select:500" },
+        { text: "1000笔（300.00 TRX）", callback_data: "batch_pkg:select:1000" },
       ],
       [
-        { text: "100笔", callback_data: "batch_pkg:select:100" },
-        { text: "200笔", callback_data: "batch_pkg:select:200" },
-        { text: "300笔", callback_data: "batch_pkg:select:300" },
-      ],
-      [
-        { text: "🔴 3.5 TRX / 笔 ", callback_data: "batch_pkg:label" }
-      ],
-      [
-        { text: "500笔", callback_data: "batch_pkg:select:500" },
-        { text: "1000笔", callback_data: "batch_pkg:select:1000" },
-        { text: "2000笔", callback_data: "batch_pkg:select:2000" },
+        { text: "📋 我的笔数地址", callback_data: "batch_pkg:my_addresses" },
+        { text: "➕ 添加地址", callback_data: "batch_pkg:add_address" },
       ],
       [
         { text: "❌ 取消", callback_data: "action:close" },

@@ -32,19 +32,12 @@ export class MainBotController {
     const chatId = msg.chat.id;
 
     const welcomeMessage =
-      `<b>🏠 欢迎使用TG多功能机器人！本机器人提供以下服务：</b>
-
-` +
-      `🔸 <b>能量租赁</b>：转U即可省 80% TRX手续费
-` +
-      `🔹 <b>笔数套餐</b>：不限时间地址，用1笔扣1笔
-` +
-      `🔸 <b>TRX 闪兑</b>：全网最高汇率，兑换秒到账
-` +
-      `🔹 <b>智能托管</b>：自动补能，省心省力
-` +
-      `🔸 <b>时长租赁</b>：灵活租用，按需选择
-` +
+      `<b>🏠 欢迎使用TG多功能机器人！本机器人提供以下服务：</b>\n\n` +
+      `🔸 <b>能量租赁</b>：转U即可省 80% TRX手续费\n` +
+      `🔹 <b>笔数套餐</b>：不限时间地址，用1笔扣1笔\n` +
+      `🔸 <b>TRX 闪兑</b>：全网最高汇率，兑换秒到账\n` +
+      `🔹 <b>智能托管</b>：自动补能，省心省力\n` +
+      `🔸 <b>时长租赁</b>：灵活租用，按需选择\n` +
       `🔹 <b>能量预支、地址监控、余额查询</b>`;
 
     const welcomeFooter =
@@ -210,12 +203,12 @@ export class MainBotController {
   private async handleBatchPackage(bot: TelegramBot, chatId: number, msgId?: number): Promise<void> {
     const text =
       `🔥 <b>笔数套餐</b>\n` +
-      `\n` +
+      `➖➖➖➖➖➖➖➖➖➖\n\n` +
       `•  不限时间、不限地址，用1笔扣1笔\n` +
       `•  带宽套餐，每日低消仅 5K 带宽，至少可省 50% 带宽费\n` +
       `•  越用越划算，专为高频交易地址量身打造\n` +
       `•  托管自动防护，避免错转误转\n\n` +
-      `<b>👇 选择套餐</b>\n\n` +
+     /* `<b>👇 选择套餐</b>\n\n` +
       `🟢    20笔  =  <b>3.7 TRX</b>/笔\n` +
       `          30笔  =  <b>3.7 TRX</b>/笔\n` +
       `          50笔  =  <b>3.7 TRX</b>/笔\n\n` +
@@ -226,8 +219,16 @@ export class MainBotController {
       `      1000笔  =  <b>3.5 TRX</b>/笔\n` +
       `      2000笔  =  <b>3.5 TRX</b>/笔\n\n` +
       `剩余带宽：<b>0</b>\n` +
-      `剩余笔数：<b>0</b> 笔\n\n` +
-      `⚡️如需帮助，请联系客服：<a href="https://t.me/trxenio">@trxenio</a>`;
+      `剩余笔数：<b>0</b> 笔\n\n` +*/
+      `📌 <b>费用说明</b>\n` +
+      `•  一笔转账 <b>131K = 0.30 TRX / 实时U价</b>\n` +
+      `•  开通直接发送一笔，后续用1笔扣1笔\n\n` +
+      `⚠️ <b>注意事项</b> \n` +
+      `•  24小时未转账，自动扣一笔\n` +
+      `•  无论对方地址类型，均自动扣一笔\n` +
+      `•  为他人购买时，填写对方地址即可\n` +
+      `•  若将笔数转移到其他地址，请联系客服<a href="https://t.me/trxenio">@trxenio</a>\n` +
+      ``;
     await bot.sendMessage(chatId, text, {
       parse_mode: "HTML",
       reply_markup: createBatchPackageKeyboard(),
@@ -255,11 +256,13 @@ export class MainBotController {
 
   private async handleUsdtToTrx(bot: TelegramBot, chatId: number, msgId?: number): Promise<void> {
     const text =
-      `🔸 <b>转账 USDT，自动按汇率兑换为 TRX</b>\n` +
-      `🔸️ 全自动到账，默认返回原地址\n\n` +
-      `🔹️ 当前汇率:\n` +
+      `💱<b>TRX闪兑</b>\n` +
+      `➖➖➖➖➖➖➖➖➖➖\n\n` +
+      `•  转账 USDT，自动按汇率兑换为 TRX\n` +
+      `•  全自动到账，默认返回原地址\n\n` +
+      `🔸<b>当前汇率:</b>\n` +
       `       <b>1 USDT = 3.05 TRX</b>\n` +
-      `🔹️ 兑换地址:\n` +
+      `🔹<b>兑换地址:</b>\n` +
       `       <code>TYzZxa2A8LsRKjq9LgqQ7yWyz1zEJNthD4</code>\n` +
       `       (点击地址复制)\n\n` +
       `⚠️ 交易所转账请提前说明\n` +
@@ -281,18 +284,18 @@ export class MainBotController {
       `➖➖➖➖➖➖➖➖➖➖\n\n` +
       `适合每日多次转账的高频用户。地址始终保持能量状态，低于即补，无需每次手动购买，直接转账即可。\n\n` +
       `💰<b>资费标准</b>\n` +
-      `      <b>转账费（按次扣除）：</b>\n` +
-      `      6.55 万能量 ➡️ 2.50 TRX / 笔 (对方有 U)\n` +
-      `      13.1 万能量 ➡️ 5.00 TRX / 笔 (对方无 U 或交易所)\n` +
-      `      <b>占用费：</b>0.10 TRX / 小时 (按实际占用时长计算)\n` +
-      `      <b>包带宽费用：</b> 0.30 TRX\n\n` +
+      `      <b>•  转账费（按次扣除）：</b>\n` +
+      `          6.55 万能量 ➡️ 2.50 TRX / 笔 (对方有 U)\n` +
+      `          13.1 万能量 ➡️ 5.00 TRX / 笔 (对方无 U 或交易所)\n` +
+      `      <b>•  占用费：</b>0.10 TRX / 小时 (按实际占用时长计算)\n` +
+      `      <b>•  包带宽费用：</b> 0.30 TRX\n\n` +
       `🚀 <b>使用步骤</b>\n` +
-      `       <b>充值：</b>确保机器人账户内 TRX 余额充足。\n` +
-      `       <b>开通：</b>点击下方 [ 新增地址 ]，选择能量规格并输入地址即可。\n\n` +
+      `       <b>1️⃣ 充值：</b>确保机器人账户内 TRX 余额充足。\n` +
+      `       <b>2️⃣ 开通：</b>点击下方 【 ➕ 新增地址 】，选择能量规格并输入地址即可。\n\n` +
       `📌 <b>规则要点</b>\n` +
-      `       <b>低于即补：</b>能量消耗后系统自动补满。\n` +
-      `       <b>随开随关：</b>可随时关闭托管，关闭后不再扣费。\n` +
-      `       <b>自动关闭：</b>若 48 小时内未转账，系统将自动关闭托管。\n\n` +
+      `       <b>•  低于即补：</b>能量消耗后系统自动补满。\n` +
+      `       <b>•  随开随关：</b>可随时关闭托管，关闭后不再扣费。\n` +
+      `       <b>•  自动关闭：</b>若 <b>48</b> 小时内未转账，系统将自动关闭托管。\n\n` +
       `➖➖➖➖➖➖➖➖➖➖\n\n` +
       `<b>账户余额：</b>0.00 TRX (<code>余额不足，请先充值</code>)`;
     await bot.sendMessage(chatId, text, {
@@ -304,33 +307,58 @@ export class MainBotController {
 
   private async handleEnergyRent(bot: TelegramBot, chatId: number, msgId?: number): Promise<void> {
     const text =
-      `⚡ <b>能量闪租</b>\n\n` +
-      `🔸 <b>转账以下金额，立即获得能量</b>（谁转谁得）\n` +
-      `         <b>2.5 TRX </b> =  1 笔（65,500 能量）\n` +
-      `         <b>5.0 TRX </b> =  2 笔（131,000 能量）\n` +
-      `         <b>7.5 TRX </b> =  3 笔（196,500 能量）\n` +
-      `       <b>10.0 TRX</b>  =  4 笔（262,000 能量）\n` +
-      `       <b>12.5 TRX</b>  =  5 笔（327,500 能量）\n\n` +
-      `🔹 收款地址:\n` +
-      `       <code>TBshqZcsq8C6zN38BZeri8E8TjgiqcswLF</code>\n` +
-      `       (点击地址复制)\n\n` +
-      `⚠️ ️请在 1 小时内使用，过期回收\n` +
-      `⚠️  对方无 U 或转交易所，需要2笔能量`;
-    await bot.sendMessage(chatId, text, {
-      parse_mode: "HTML",
-      reply_markup: createEnergyRentKeyboard(),
-    });
-    this.logger.log(`用户 ${chatId} 查询买能量`);
+      // `⚡️<b>能量闪租</b>\n` +
+      // `➖➖➖➖➖➖➖➖➖➖\n\n` +
+      `🎉现在下单即可获赠350宽带\n` +
+      `📢转TRX到下面的地址即可收到能量\n\n` +
+      `<code>TWRhoADdMfi7tivm6MA4rXF9wKECc1twCm</code>\n` +
+      `(点击地址复制)\n\n` +
+      `✨转账  <b>2.5 TRX</b> = 1 笔能量\n` +
+      `✨转账  <b>5.0 TRX</b> = 2 笔能量 (1笔对方无U转这个)\n` +
+      `✨转账  <b>7.5 TRX</b> = 3 笔能量\n` +
+      `✨转账  <b>10.0 TRX</b> = 4 笔能量\n` +
+      `✨转账  <b>12.0 TRX</b> = 5 笔能量\n` +
+      `✨转账  <b>15.0 TRX</b> = 6 笔能量\n\n` +
+      `📌友情提醒:\n` +
+      `1. 哪个地址转账哪个地址接收\n` +
+      `2. 请勿使用交易所或中心化钱包转账\n` +
+      `3. 按照指定金额转账，否则租用失败\n\n` +
+      `7x24在线机器人:<a href="https://t.me/trxen_bot">@trxen_bot</a>\n` +
+      `在线客服:<a href="https://t.me/trxenio">@trxenio</a>`;
+    try {
+      const bannerPath = path.join(__dirname, "../../img/energy-banner.jpg");
+      if (fs.existsSync(bannerPath)) {
+        await bot.sendPhoto(chatId, fs.createReadStream(bannerPath), {
+          caption: text,
+          parse_mode: "HTML",
+          reply_markup: createEnergyRentKeyboard(),
+        });
+      } else {
+        await bot.sendMessage(chatId, text, {
+          parse_mode: "HTML",
+          reply_markup: createEnergyRentKeyboard(),
+        });
+      }
+      this.logger.log(`用户 ${chatId} 查询买能量`);
+    } catch (error) {
+      this.logger.error(`发送能量闪租消息失败 (chatId: ${chatId}):`, error);
+      await bot.sendMessage(chatId, `⚡️ 能量闪租功能暂时不可用，请稍后再试。`);
+    }
   }
 
   private async handlePersonalCenter(bot: TelegramBot, chatId: number, msg: Message): Promise<void> {
     const userId = msg.from?.id || chatId;
     const username = msg.from?.first_name || msg.from?.username || "未知";
     const text =
-      `👤 <b>账户信息</b>\n\n` +
-      `用户ID:     <code>${userId}</code>\n` +
-      `用户名:     ${username}\n` +
-      `账号余额:  <b>0.00 TRX</b>`;
+      `👤 <b>个人中心</b>\n` +
+      `➖➖➖➖➖➖➖➖➖➖\n\n` +
+      `•  账号 ID:     ${userId} (${username}) \n` +
+      `•  加入时间:  2026-07-16 \n\n` +
+      `•  账号余额:  <b>0.00 TRX</b>\n` +
+      `•  智能托管:  <b>0</b> 个地址运行中\n\n` +
+      `➖➖➖➖➖➖➖➖➖➖\n\n` +
+      `💡点击下方【 💰余额充值 】发起充值申请，充值后即可开通智能托管等服务。` +
+      ``;
 
     await bot.sendMessage(chatId, text, {
       parse_mode: "HTML",
@@ -341,7 +369,8 @@ export class MainBotController {
 
   private async handleDurationLease(bot: TelegramBot, chatId: number, msgId?: number): Promise<void> {
     const text =
-      `🔋 <b>时长租赁</b>\n\n` +
+      `🔋 <b>时长租赁</b>\n` +
+      `➖➖➖➖➖➖➖➖➖➖\n\n` +
       `🔸 租用能量,转账无需 TRX 消耗, 0 手续费!\n` +
       `🔹 租赁时长 <b>1 小时</b>，可用余额支付\n\n` +
       `⚠️ 对未激活地址转账手续费需要双倍`;
@@ -359,17 +388,17 @@ export class MainBotController {
       `💵 每笔指令费用：2.2 TRX\n` +
       `👤 当前账户余额：0.00 TRX\n\n` +
       `📌 <b>扣费与返还规则</b>\n` +
-      `<b>• 接收方地址 无 U </b>➡️ 扣除 4.4 TRX（系统自动补足全额能量）\n` +
-      `<b>• 接收方地址 有 U </b>➡️ 预扣 4.4 TRX（交易成功后自动返还 2.2 TRX，实际仅收 2.2 TRX）\n\n` +
+      `      <b>• 接收方地址 无 U </b>➡️ 扣除 4.4 TRX（系统自动补足全额能量）\n` +
+      `      <b>• 接收方地址 有 U </b>➡️ 预扣 4.4 TRX（交易成功后自动返还 2.2 TRX，实际仅收 2.2 TRX）\n\n` +
       `⏳ 租用的能量有效期为 1 小时，下单后请尽快完成转账，避免过期。\n\n` +
       `➖➖➖➖➖➖➖➖➖➖\n\n` +
       `📖 <b>快捷指令使用说明</b>\n\n` +
-      `为了提高您的转账效率，本机器人支持 "数字指令" 快速下单：\n` +
-      `<b>• 绑定地址：</b>\n` +
-      `      点击下方 [ 添加地址 ] 绑定您的常用波场地址。\n` +
-      `<b>• 获取指令：</b>\n` +
+      `为了提高您的转账效率，本机器人支持 "数字指令" 快速下单：\n\n` +
+      `<b>1️⃣ 绑定地址：</b>\n` +
+      `      点击下方 【 ➕ 添加地址 】 绑定您的常用波场地址。\n` +
+      `<b>2️⃣ 获取指令：</b>\n` +
       `      绑定成功后，地址后方会生成专属的数字编号（例如：指令:11、指令:22）。\n` +
-      `<b>• 快速下单：</b>\n` +
+      `<b>3️⃣ 快速下单：</b>\n` +
       `      在聊天框中直接发送对应的数字（例如直接发送 11 或 22），系统将自动为您绑定的该地址秒级注入能量，无需再点击按钮。\n\n` +
       `👇 请选择地址下单（或直接发送指令数字）👇`;
 
@@ -498,6 +527,22 @@ export class MainBotController {
         await bot.answerCallbackQuery(query.id);
         return;
       }
+      if (action === "my_addresses") {
+        await bot.answerCallbackQuery(query.id);
+        await bot.sendMessage(chatId,
+          `📋 <b>我的笔数地址</b>\n\n暂无地址。`,
+          { parse_mode: "HTML" },
+        );
+        return;
+      }
+      if (action === "add_address") {
+        await bot.answerCallbackQuery(query.id);
+        await bot.sendMessage(chatId,
+          `🔸 输入要绑定的地址：`,
+          { parse_mode: "HTML" },
+        );
+        return;
+      }
     }
 
     // 智能托管 - 地址管理
@@ -623,6 +668,23 @@ export class MainBotController {
     if (data === "buy_trx") {
       await bot.answerCallbackQuery(query.id);
       await bot.sendMessage(chatId, "⏳ 购买 TRX 功能开发中...");
+      return;
+    }
+
+    if (data === "gotoWeb") {
+      await bot.answerCallbackQuery(query.id);
+      await bot.sendMessage(chatId,
+        `🌐 <b>用户后台登录</b>\n` +
+        `➖➖➖➖➖➖➖➖➖➖\n\n` +
+        `请点击下方链接进入用户后台：\n` +
+        `<a href="http://192.168.31.74:8888/?session=8764a12c0a5d52cd24e97849805982b7">http://192.168.31.74:8888/?session=8764a12c0a5d52cd24e97849805982b7</a>\n\n` +
+        `验证码：<code>309185</code>\n\n` +
+        `验证码 5 分钟内有效，请勿泄露给他人。`,
+        {
+          parse_mode: "HTML",
+          disable_web_page_preview: true,
+        },
+      );
       return;
     }
 
